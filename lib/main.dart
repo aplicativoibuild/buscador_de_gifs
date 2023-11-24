@@ -1,4 +1,3 @@
-import 'package:busca_gifs/pages/gif_page.dart';
 import 'package:flutter/material.dart';
 import 'package:busca_gifs/pages/home_page.dart';
 

@@ -19,12 +19,12 @@ class _HomePageState extends State<HomePage> {
   Future<Map> _getGifs() async {
     http.Response response;
 
-    if (_search == null || _search.isEmpty)
+    if (_search.isEmpty)
       response = await http.get(
           "https://api.giphy.com/v1/gifs/trending?api_key=Vc3Pbplh7hU2O2A2FwBNbMDRN0wNUcrg&limit=20&rating=G");
     else
       response = await http.get(
-          "https://api.giphy.com/v1/gifs/search?api_key=Vc3Pbplh7hU2O2A2FwBNbMDRN0wNUcrg&q=${_search}&limit=19&offset=${_offsetPagination}&rating=G&lang=en");
+          "https://api.giphy.com/v1/gifs/search?api_key=Vc3Pbplh7hU2O2A2FwBNbMDRN0wNUcrg&q=$_search&limit=19&offset=$_offsetPagination&rating=G&lang=en");
 
     return json.decode(response.body);
   }
@@ -107,12 +107,8 @@ class _HomePageState extends State<HomePage> {
   }
 
   int _getCount(List data) {
-    if (_search == null) {
-      return data.length;
-    } else {
-      return data.length + 1;
+    return data.length + 1;
     }
-  }
 
   Widget _createGifTable(BuildContext context, AsyncSnapshot snapshot) {
     return GridView.builder(
@@ -124,7 +120,7 @@ class _HomePageState extends State<HomePage> {
         ),
         itemCount: _getCount(snapshot.data['data']),
         itemBuilder: (context, index) {
-          if (_search == null || index < snapshot.data['data'].length) {
+          if (index < snapshot.data['data'].length) {
             return GestureDetector(
               child: Stack(
                 children: <Widget>[
